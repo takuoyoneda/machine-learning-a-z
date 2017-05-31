@@ -16,18 +16,18 @@ dataset = dataset[2:3]
 # training_set = scale(training_set)
 # test_set = scale(test_set)
 
-# Fitting the Random Forest Regression to the dataset
+# Fitting Random Forest Regression to the dataset
 # install.packages('randomForest')
 library(randomForest)
 set.seed(1234)
-regressor = randomForest(x = dataset[1], 
+regressor = randomForest(x = dataset[-2],
                          y = dataset$Salary,
-                         Ntree = 500)
+                         ntree = 500)
 
-# Predicting a new result
+# Predicting a new result with Random Forest Regression
 y_pred = predict(regressor, data.frame(Level = 6.5))
 
-# Visualising the Random Forest Regression results (for higher resolution and smoother curve)
+# Visualising the Random Forest Regression results (higher resolution)
 # install.packages('ggplot2')
 library(ggplot2)
 x_grid = seq(min(dataset$Level), max(dataset$Level), 0.01)
