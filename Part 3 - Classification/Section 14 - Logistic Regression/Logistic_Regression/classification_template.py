@@ -1,4 +1,4 @@
-# Logistic Regression
+# Classification Template
 
 # Importing the libraries
 import numpy as np
@@ -20,10 +20,8 @@ sc_X = StandardScaler()
 X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)
 
-# Fitting the Regression to the dataset
-from sklearn.linear_model import LogisticRegression
-classifier = LogisticRegression(random_state = 0)
-classifier.fit(X_train, y_train)
+# Fitting the classifier to the dataset
+# Create your classifier here
 
 # Predicting a new result
 y_pred = classifier.predict(X_test)
@@ -67,4 +65,3 @@ plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
 plt.show()
-

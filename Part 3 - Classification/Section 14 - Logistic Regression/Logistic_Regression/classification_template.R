@@ -1,8 +1,11 @@
-# Logistic Regression
+# Classification Template
 
 # Importing the dataset
 dataset = read.csv('Social_Network_Ads.csv')
-dataset = dataset[, 3:5]
+dataset = dataset[3:5]
+
+# Encoding the target feature as factor
+dataset$Purchased = factor(dataset$Purchased, levels = c(0,1))
 
 # Splitting the dataset into the Training set and Test set
 # install.packages('caTools')
@@ -13,20 +16,18 @@ training_set = subset(dataset, split == TRUE)
 test_set = subset(dataset, split == FALSE)
 
 # Feature Scaling
-training_set[, 1:2] = scale(training_set[, 1:2])
-test_set[, 1:2] = scale(test_set[, 1:2])
+training_set[-3] = scale(training_set[-3])
+test_set[-3] = scale(test_set[-3])
 
-# Fitting Logistic Regression to the Training set
-classifier = glm(formula = Purchased ~ .,
-                 family = binomial,
-                 data = training_set)
+# Fitting classifier to the Training set
+# Create your classifier here
 
 # Predicting the Test set results
 prob_pred = predict(classifier, type = 'response', newdata = test_set[-3])
 y_pred = ifelse(prob_pred > 0.5, 1, 0)
 
 # Making the Confusion Matrix
-cm = table(test_set[, 3], y_pred)
+cm = table(test_set[, 3], y_pred > 0.5)
 
 # Visualising the Training set results
 # install.packages('ElemStatLearn')
@@ -39,7 +40,7 @@ colnames(grid_set) = c('Age', 'EstimatedSalary')
 prob_set = predict(classifier, type = 'response', newdata = grid_set)
 y_grid = ifelse(prob_set > 0.5, 1, 0)
 plot(set[, -3],
-     main = 'Logistic Regression (Training set)',
+     main = 'Classifier (Training set)',
      xlab = 'Age', ylab = 'Estimated Salary',
      xlim = range(X1), ylim = range(X2))
 contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
@@ -57,7 +58,7 @@ colnames(grid_set) = c('Age', 'EstimatedSalary')
 prob_set = predict(classifier, type = 'response', newdata = grid_set)
 y_grid = ifelse(prob_set > 0.5, 1, 0)
 plot(set[, -3],
-     main = 'Logistic Regression (Test set)',
+     main = 'Classifier (Test set)',
      xlab = 'Age', ylab = 'Estimated Salary',
      xlim = range(X1), ylim = range(X2))
 contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
